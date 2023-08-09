@@ -1,0 +1,19 @@
+{
+  "name": "slack-5ch",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230807.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.1",
+    "wrangler": "3.5.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "slack-cloudflare-workers": "^0.5.2"
+  }
+}
