@@ -21,7 +21,7 @@ export default {
     ctx: ExecutionContext,
   ): Promise<Response> {
     const app = new SlackApp({ env });
-    app.command("/hey-cf-workers", async ({ context, payload}) => {
+    app.command("/anonymous-chat", async ({ context, payload}) => {
 		await context.client.chat.postMessage({
 			channel: env.POST_CHANNEL_ID,
 			text: payload.text
