@@ -1,3 +1,5 @@
+import { SlackApp, SlackEdgeAppEnv } from "slack-cloudflare-workers";
+
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
  *
@@ -8,26 +10,23 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	// MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
+export interface Env extends SlackEdgeAppEnv {
+  POST_CHANNEL_ID: string;
 }
 
 export default {
-	async fetch(
-		request: Request,
-		env: Env,
-		ctx: ExecutionContext
-	): Promise<Response> {
-		return new Response("Hello World!");
-	},
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
+    const app = new SlackApp({ env });
+    app.command("/hey-cf-workers", async ({ context, payload}) => {
+		await context.client.chat.postMessage({
+			channel: env.POST_CHANNEL_ID,
+			text: payload.text
+		})
+	});
+    return await app.run(request, ctx);
+  },
 };
