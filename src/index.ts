@@ -1,4 +1,5 @@
 import { SlackApp, SlackEdgeAppEnv } from "slack-cloudflare-workers";
+import md5 from "md5";
 
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
@@ -14,6 +15,16 @@ export interface Env extends SlackEdgeAppEnv {
   POST_CHANNEL_ID: string;
 }
 
+function todayString(): string {
+  const today = new Date();
+  return `${today.getFullYear()}${today.getMonth()}${today.getDay()}`
+}
+
+function makeID(userID: string): string {
+  const today = todayString();
+  return `${md5(today+userID).slice(0, 7)}0`;
+}
+
 export default {
   async fetch(
     request: Request,
@@ -23,8 +34,9 @@ export default {
     const app = new SlackApp({ env });
     app.command("/anonymous-chat", async ({ context, payload}) => {
 		await context.client.chat.postMessage({
+			username: `以下、名無しに変わりましてVIPがお送りします ID:${makeID(payload.user_id)}`,
 			channel: env.POST_CHANNEL_ID,
-			text: payload.text
+			text: payload.text,
 		})
 	});
     return await app.run(request, ctx);
