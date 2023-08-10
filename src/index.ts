@@ -33,12 +33,12 @@ export default {
   ): Promise<Response> {
     const app = new SlackApp({ env });
     app.command("/anonymous-chat", async ({ context, payload}) => {
-		await context.client.chat.postMessage({
-			username: `以下、名無しに変わりましてVIPがお送りします ID:${makeID(payload.user_id)}`,
-			channel: env.POST_CHANNEL_ID,
-			text: payload.text,
-		})
-	});
+    await context.client.chat.postMessage({
+      username: `以下、名無しに変わりましてVIPがお送りします ID:${makeID(payload.user_id)}`,
+      channel: env.POST_CHANNEL_ID,
+      text: payload.text,
+    })
+  });
     return await app.run(request, ctx);
   },
 };
