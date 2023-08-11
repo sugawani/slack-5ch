@@ -1,4 +1,5 @@
 import { SlackApp, SlackEdgeAppEnv } from "slack-cloudflare-workers";
+import { SlashCommand } from "slack-edge";
 
 export interface Env extends SlackEdgeAppEnv {
   POST_CHANNEL_ID: string;
@@ -31,8 +32,11 @@ const getToday5chFormat = (): string => {
   }).format(new Date());
 }
 
-const getUsername = (): string => {
-  return "名無しさん"
+const getUsername = (payload: SlashCommand): string => {
+  if (payload.text.includes("fushianasan")) {
+    return payload.user_id;
+  }
+  return "名無しさん";
 }
 
 export default {
@@ -46,7 +50,7 @@ export default {
     incrementResponseID(env, responseID);
     app.command("/anonymous-chat", async ({ context, payload}) => {
       await context.client.chat.postMessage({
-        username: `${responseID} ${getUsername()} ${getToday5chFormat()} ID:${makeID()}`,
+        username: `${responseID} ${getUsername(payload)} ${getToday5chFormat()} ID:${makeID()}`,
         channel: env.POST_CHANNEL_ID,
         text: payload.text,
       });
