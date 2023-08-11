@@ -33,7 +33,7 @@ const getToday5chFormat = (): string => {
 }
 
 const getUsername = (payload: SlashCommand): string => {
-  if (payload.text.includes("fushianasan")) {
+  if (payload.text.includes("fusianasan")) {
     return payload.user_id;
   }
   return "名無しさん";
