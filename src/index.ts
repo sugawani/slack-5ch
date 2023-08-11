@@ -18,6 +18,23 @@ const incrementResponseID = (env: Env, currentID: number): void => {
   env.responses.put("id", `${currentID+1}`);
 }
 
+const getToday5chFormat = (): string => {
+  return new Intl.DateTimeFormat('ja-JP', {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    fractionalSecondDigits: 2
+  }).format(new Date());
+}
+
+const getUsername = (): string => {
+  return "名無しさん"
+}
+
 export default {
   async fetch(
     request: Request,
@@ -29,7 +46,7 @@ export default {
     incrementResponseID(env, responseID);
     app.command("/anonymous-chat", async ({ context, payload}) => {
       await context.client.chat.postMessage({
-        username: `${responseID} 以下、名無しに変わりましてVIPがお送りします ID:${makeID()}`,
+        username: `${responseID} ${getUsername()} ${getToday5chFormat()} ID:${makeID()}`,
         channel: env.POST_CHANNEL_ID,
         text: payload.text,
       });
