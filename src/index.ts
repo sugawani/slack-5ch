@@ -48,7 +48,7 @@ export default {
     const app = new SlackApp({ env });
     const responseID = await fetchResponseID(env);
     incrementResponseID(env, responseID);
-    app.command("/anonymous-chat", async ({ context, payload}) => {
+    app.command("/5ch", async ({ context, payload}) => {
       await context.client.chat.postMessage({
         username: `${responseID} ${getUsername(payload)} ${getToday5chFormat()} ID:${makeID()}`,
         channel: env.POST_CHANNEL_ID,
