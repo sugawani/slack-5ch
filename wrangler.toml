@@ -1,3 +1,7 @@
 name = "slack-5ch"
 main = "src/index.ts"
-compatibility_date = "2023-08-09"
+compatibility_date = "2023-08-07"
+
+kv_namespaces = [
+    { binding = "responses", id = "a37d16fc52c14bfbabfc221ca15c71ed", preview_id = "cd22aeaac474480aa84d7861f4e6abf8" }
+]
