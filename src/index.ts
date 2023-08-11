@@ -39,6 +39,8 @@ const getUsername = (payload: SlashCommand): string => {
   return "名無しさん";
 }
 
+const commandRegex = /\/(5ch|vip)/;
+
 export default {
   async fetch(
     request: Request,
@@ -47,8 +49,8 @@ export default {
   ): Promise<Response> {
     const app = new SlackApp({ env });
     const responseID = await fetchResponseID(env);
-    incrementResponseID(env, responseID);
-    app.command("/5ch", async ({ context, payload}) => {
+    await incrementResponseID(env, responseID);
+    app.command(commandRegex, async ({ context, payload}) => {
       await context.client.chat.postMessage({
         username: `${responseID} ${getUsername(payload)} ${getToday5chFormat()} ID:${makeID()}`,
         channel: env.POST_CHANNEL_ID,
