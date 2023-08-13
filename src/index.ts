@@ -46,7 +46,6 @@ const insertPostMessage = async (db: D1Database, payload: SlashCommand, res_id: 
   const result = await db.prepare("INSERT INTO post_messages (res_id, user_id, text, created_at) values (?, ?, ?, ?)").
     bind(res_id, payload.user_id, payload.text, now).
     run();
-  console.log(result);
   if (!result.success) {
     console.error(result.error);
   }
