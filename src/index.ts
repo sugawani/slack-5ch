@@ -69,7 +69,7 @@ export default {
         channel: env.POST_CHANNEL_ID,
         text: payload.text,
       });
-      insertPostMessage(env.DB, payload, responseID);
+      await insertPostMessage(env.DB, payload, responseID);
     });
     return await app.run(request, ctx);
   },
