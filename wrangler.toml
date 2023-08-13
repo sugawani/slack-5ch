@@ -2,6 +2,11 @@ name = "slack-5ch"
 main = "src/index.ts"
 compatibility_date = "2023-08-07"
 
-kv_namespaces = [
-    { binding = "responses", id = "a37d16fc52c14bfbabfc221ca15c71ed", preview_id = "cd22aeaac474480aa84d7861f4e6abf8" }
+[durable_objects]
+bindings = [
+  { name = "ID_COUNTER", class_name = "IDCounter" }
 ]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["IDCounter"]
