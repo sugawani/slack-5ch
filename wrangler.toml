@@ -7,6 +7,11 @@ bindings = [
   { name = "ID_COUNTER", class_name = "IDCounter" }
 ]
 
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "post_messages"
+database_id = "a4d23eac-a11c-4939-8cca-2d5bd002afa4"
+
 [[migrations]]
 tag = "v1"
 new_classes = ["IDCounter"]

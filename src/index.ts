@@ -4,6 +4,7 @@ import { SlashCommand } from "slack-edge";
 export interface Env extends SlackEdgeAppEnv {
   POST_CHANNEL_ID: string;
   ID_COUNTER: DurableObjectNamespace;
+  DB: D1Database;
 }
 
 const makeID = (): string => {
@@ -40,6 +41,17 @@ const fetchCurrentResponseID = async (
   return parseInt(await res.text());
 };
 
+const insertPostMessage = async (db: D1Database, payload: SlashCommand, res_id: number): Promise<void> => {
+  const now = (new Date()).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  const result = await db.prepare("INSERT INTO post_messages (res_id, user_id, text, created_at) values (?, ?, ?, ?)").
+    bind(res_id, payload.user_id, payload.text, now).
+    run();
+  console.log(result);
+  if (!result.success) {
+    console.error(result.error);
+  }
+}
+
 const commandRegex = /\/(5ch|vip)/;
 
 export default {
@@ -58,6 +70,7 @@ export default {
         channel: env.POST_CHANNEL_ID,
         text: payload.text,
       });
+      insertPostMessage(env.DB, payload, responseID);
     });
     return await app.run(request, ctx);
   },
