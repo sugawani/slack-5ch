@@ -129,3 +129,6 @@ export default {
 };
 ```
 
+### ID が欲しい場合  
+https://github.com/sugawani/slack-5ch/commit/ab610ca38df03c7d086c709feee2f06586f55b89  
+この辺のコミットを参考に KV で動かしてみてください
