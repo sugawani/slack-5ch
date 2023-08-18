@@ -13,8 +13,8 @@ Slack 上で2ちゃんねる(5ちゃんねる)のように匿名でチャット�
 以下の前提です
 - wrangler インストール済み
 - wrangler login 実行済み
-- cloudflare workers paid plan(Durable Object 使っているため)
-一応最後の方に無料で使う方法も書いてます
+- cloudflare workers paid plan(Durable Object 使っているため)  
+※一応最後の方に無料で使う方法も書いてます
 
 ## cloudflare workers へのデプロイ
 ### d1 database の作成
@@ -26,22 +26,22 @@ Slack 上で2ちゃんねる(5ちゃんねる)のように匿名でチャット�
 ### デプロイ
 
 1. `wrangler deploy` を実行
-2. デプロイ完了で URL が表示されると思うのでメモしておく
+2. デプロイ完了で URL が表示されると思うのでメモしておく  
 -> slack app の作成時に使います
 
 ## slack app を作成
 
 1. https://api.slack.com/apps から Create New App を選択
 2. From an app manifest を選択
-3. `slack-app-manifest-example.yml` の内容を貼り付け
-この際 `https://your-cloudflare-workers-url` となっている部分は、デプロイ済みの cloudflare workers の URL に変更してください
+3. `slack-app-manifest-example.yml` の内容を貼り付け  
+`https://your-cloudflare-workers-url` となっている部分は、デプロイ済みの cloudflare workers の URL に変更してください
 4. Basic Information -> Install to Workspace でアプリをインストール
 5. Bot User OAuth Token が表示するのでメモ
 6. Basic Information -> App Credentials -> Signing Secret をメモ
 
 ## 匿名チャットメッセージを投稿するチャンネル ID を取得
 
-1. チャンネルを作成または任意のチャンネルの既存のチャンネルの詳細からチャンネル ID を取得してメモしておく
+1. チャンネルを作成または任意のチャンネルの既存のチャンネルの詳細からチャンネル ID を取得してメモしておく  
 画面上部のチャンネル名をクリックし、最下部までスクロールすると `Channel ID: XXXXX` の形で記載されています
 
 ## 環境変数の設定
@@ -67,7 +67,7 @@ ENJOY!
 
 ### cloudflared を通して dev サーバーを公開できるようにする  
 
-1. https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/ をインストール
+1. https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/ をインストール  
 Mac の場合は `brew install cloudflare/cloudflare/cloudflared` で OK
 2. `wrangler dev` を実行
 `[mf:inf] Ready on http://127.0.0.1:8787/` のような表示が出たら OK
