@@ -10,7 +10,7 @@ bindings = [
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "post_messages"
-database_id = "a4d23eac-a11c-4939-8cca-2d5bd002afa4"
+database_id = "insert_your_d1_database_1d"
 
 [[migrations]]
 tag = "v1"

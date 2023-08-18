@@ -1,0 +1,26 @@
+display_information:
+  name: slack-5ch
+  description: slack でやるお！
+  background_color: "#000000"
+features:
+  bot_user:
+    display_name: slack-5ch
+    always_online: true
+  slash_commands:
+    - command: /5ch
+      url: https://your-cloudflare-workers-url
+      description: 匿名でチャットするお！
+      usage_hint: ｷﾀ━━━━(ﾟ∀ﾟ)━━━━!!
+      should_escape: false
+    - command: /vip
+      url: https://your-cloudflare-workers-url
+      description: VIP でやるお！
+      usage_hint: おっおっお(＾ω＾)
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+      - chat:write.public
+      - commands
+      - chat:write.customize
