@@ -1,6 +1,7 @@
 name = "slack-5ch"
 main = "src/index.ts"
 compatibility_date = "2023-08-07"
+logpush = true
 
 [durable_objects]
 bindings = [
