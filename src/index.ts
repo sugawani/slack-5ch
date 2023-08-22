@@ -63,6 +63,7 @@ export default {
     const app = new SlackApp({ env });
     const responseID = await fetchCurrentResponseID(request, env);
     app.command(commandRegex, async ({ context, payload }) => {
+      ctx.waitUntil(insertPostMessage(env.DB, payload, responseID));
       await context.client.chat.postMessage({
         username: `${responseID} ${
           getUsername(payload)
@@ -70,7 +71,6 @@ export default {
         channel: env.POST_CHANNEL_ID,
         text: payload.text,
       });
-      await insertPostMessage(env.DB, payload, responseID);
     });
     return await app.run(request, ctx);
   },
