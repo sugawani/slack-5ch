@@ -61,8 +61,11 @@ export default {
     ctx: ExecutionContext,
   ): Promise<Response> {
     const app = new SlackApp({ env });
-    const responseID = await fetchCurrentResponseID(request, env);
     app.command(commandRegex, async ({ context, payload }) => {
+      if (!payload.text) {
+        return "message は必須です";
+      }
+      const responseID = await fetchCurrentResponseID(request, env);
       ctx.waitUntil(insertPostMessage(env.DB, payload, responseID));
       await context.client.chat.postMessage({
         username: `${responseID} ${
