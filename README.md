@@ -17,6 +17,11 @@ Slack 上で2ちゃんねる(5ちゃんねる)のように匿名でチャット�
 ※一応最後の方に無料で使う方法も書いてます
 
 ## cloudflare workers へのデプロイ
+
+### npm install
+
+`npm install` を実行して依存関係をインストール
+
 ### d1 database の作成
 
 1. `wrangler d1 create post_messages` を実行しメッセージを保存する D1 Database 作成
